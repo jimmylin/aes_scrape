@@ -1,86 +1,62 @@
-# AES Scrape
+# AES Tournament Scraper
 
-A Python project designed to scrape data from the AES (Automated Export System) and process it for analysis.
+This script retrieves tournament event details from Advanced Event Systems (AES), including the number of registered teams for Open Boys divisions across various age groups. It formats the data and writes it to both a CSV file and a Google Sheets document.
 
-## Features
+## Prerequisites
 
-- **Data Fetching**: Retrieve data from the AES.
-- **Data Processing**: Process and analyze the fetched data.
-- **CSV Export**: Export processed data to CSV format.
-
-## Requirements
-
-- Python 3.x
-- `uv` package manager ([installation guide](https://github.com/astral-sh/uv))
+Ensure you have the following installed:
+- Python 3.8+
+- [uv](https://github.com/astral-sh/uv) (a fast Python package manager)
 
 ## Installation
 
-1. **Clone the Repository**:
-
-   ```bash
-   git clone https://github.com/jimmylin/aes_scrape.git
-   cd aes_scrape
+1. Clone the repository:
+   ```sh
+   git clone <repository_url>
+   cd <repository_name>
    ```
 
-2. **Install Dependencies Using `uv`**:
-
-   ```bash
+2. Install dependencies using `uv`:
+   ```sh
    uv venv
    uv pip install -r requirements.txt
    ```
 
-3. **Activate Virtual Environment**:
+## Setup
 
-   ```bash
-   source .venv/bin/activate  # On macOS/Linux
-   .venv\Scripts\activate     # On Windows
-   ```
+1. Obtain AES API credentials (if required) and Google Sheets API credentials.
+2. Create a Google Service Account and download the credentials file as `credentials.json`.
+3. Place the `credentials.json` file in the project root.
+4. Share the **AES Data** Google Sheet with the Service Account's email address to grant it access.
 
 ## Usage
 
-1. **Fetch Data**:
+Run the script with a list of tournament event IDs:
+```sh
+uv pip run scrape.py <tournament_id_1> <tournament_id_2> ...
+```
 
-   Run the `fetch_data.py` script to retrieve data from the AES.
+### Example:
+```sh
+uv pip run scrape.py 12345 67890
+```
 
-   ```bash
-   python fetch_data.py
-   ```
+This will:
+- Fetch tournament data from AES.
+- Extract team registration details for Open Boys divisions.
+- Save the results to `tournaments.csv`.
+- Upload the data to a Google Sheets document named **"AES Data"** under the **"Tournaments"** worksheet.
 
-2. **Scrape Data**:
+## Output
+- **CSV File**: `tournaments.csv` in the project directory.
+- **Google Sheets**: Data written to the "AES Data" spreadsheet under the "Tournaments" worksheet.
 
-   Use the `scrape.py` script to process the fetched data.
-
-   ```bash
-   python scrape.py
-   ```
-
-3. **Hello Script**:
-
-   The `hello.py` script is a simple example script.
-
-   ```bash
-   python hello.py
-   ```
-
-## Project Structure
-
-- `fetch_data.py`: Script to fetch data from the AES.
-- `scrape.py`: Script to process and analyze the fetched data.
-- `hello.py`: Example script.
-- `tournaments.csv`: Sample CSV file containing data.
-- `.gitignore`: Specifies files and directories to be ignored by git.
-- `.python-version`: Specifies the Python version used for the project.
-- `pyproject.toml`: Contains project metadata and dependencies.
-- `uv.lock`: Lock file for dependencies.
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request with your changes.
+## Troubleshooting
+- Ensure your `credentials.json` file is correctly configured.
+- Verify `uv` is installed and available in your environment.
+- Ensure the Google Service Account has been shared access to the **AES Data** Google Sheet.
+- Check for API rate limits or connectivity issues if data fetching fails.
 
 ## License
+This project is licensed under the MIT License.
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
-
-## Contact
-
-For questions or suggestions, please open an issue in this repository.
